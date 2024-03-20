@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import { cnApp } from './App.classname';
+import { PageEnter } from './pages/PageEnter/PageEnter';
+
 import './App.css';
 
-function App() {
+type User = {
+  login: string;
+  token: string;
+};
+
+const App = () => {
+  const [user, setUser] = useState<User | undefined>(undefined);
+
+  const handleEnter = (login: string, token: string) => {
+    setUser({ login, token });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={cnApp()}>
+      {user ? 'Добро пожаловать' : <PageEnter onEnter={handleEnter} />}
     </div>
   );
 }
 
-export default App;
+export { App };
